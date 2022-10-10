@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.demo.dao.TestDao">
+
+    <select id="findAll" resultType="com.example.demo.vo.User">
+        select *
+        from test1
+    </select>
+
+    <select id="findById" parameterType="int" resultType="list">
+        select *
+        from test1
+        where id = #{id}
+    </select>
+
+    <select id="insert" parameterType="com.example.demo.vo.User">
+        insert into test1 (id, name)
+        values (#{id}, #{name})
+    </select>
+
+   <!-- <select id="insertIntoPerformanceData" parameterType="com.example.demo.vo.PerformanceDataBean">
+        insert into test1 (id, name,create_time,succ_num,fail_num)
+
+        values (#{bean.id}, #{name})
+    </select>
+-->
+
+
+    <insert id="insertIntoPerformanceData" parameterType="java.util.List">
+        INSERT INTO
+        ycx_performance_test
+        (
+        id, name,create_time,succ_num,fail_num
+        )
+        values
+        <foreach collection="beans" item="item" index="index" separator=",">
+            (
+            #{item.id},#{item.name},#{item.createTime},#{item.succNum},#{item.failNum}
+            )
+        </foreach>
+    </insert>
+
+</mapper>
